@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Costo de Corte de Madera</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- links para exportar a PDF -->
+    <!-- <script src="jspdf.debug.js"></script> -->
+
+    <!-- ChatGPT ejemplo -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    
+    <!-- links fontawesome ICONOS  -->
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    
+
+    <style>
+        #logo {
+            display: inline;
+            width: 80px;
+            float: right;
+            top: -10px;
+            position: relative;
+            
+            
+        }
+
+        #logo1 {
+            display: block;
+            width: 80px;
+            float: right;
+            
+            position: relative;
+            
+            
+        }
+
+        #logoUp {
+            display: inline;
+            width: 80px;
+            float: right;
+            top: -4px;
+            position: relative;
+            
+        }
+
+        /* h1 {
+            padding: 4px 19px ;
+            color: gray;
+        } */
+        h3 {
+            padding: 20px 7px ;
+            
+        }
+        #CALCULAR {
+            box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+            cursor: pointer;
+            
+        }
+        
+        #uno {
+            
+            padding: 12px 20px;
+            border-radius: 4px;
+            width: 30%;
+        }
+
+        select {
+            cursor: pointer;
+        }
+        #dos{
+             
+            padding: 12px 20px;
+            border-radius: 4px;
+        }
+
+        #imagenMadera {
+
+            padding: 12px 20px;
+            border-radius: 4px;
+            /* box-shadow: 2px 2px 2px rgba(0,0,0,0.1); */
+            border: solid 1px black;
+        }
+
+        #misCortes {
+            padding: 3px 19px ;
+            
+        }
+
+        #button {
+            margin-left: 30%;
+            height: 34px;
+            width: 34px;
+            
+        }
+
+        #button2 {
+            margin-left: 1% ;
+            height: 34px;
+            width: 34px;
+        }
+        
+        #icon {
+            color: #000;
+            
+        }
+
+        
+
+
+    </style>
+</head>
+<script>
+
+// Para activar el mensaje arriba del boton 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+</script>
+<body >
+    <hr>
+    <img id="logoUp" src="https://rematesmdq.com/surmaderas/img/logo-linea-gris.png">
+    <h1 style="color: gray; padding: 4px 19px ;">COTIZADOR DE CORTES</h1> 
+    
+    
+    <hr>
+    <div id="uno"> 
+        <strong><u><p id="parrafo titulo">Para cotizar su corte complete los siguientes pasos:</p></u></strong>
+        
+        
+            <u><label for="tipoMadera">1. Selecione el tipo de madera:</label></u>
+            <select class="form-select" aria-label="Default select example" id="tipoMadera">
+                <option selected value="0">Materiales</option>
+                <option id="FF" value="7645.13" data-image="https://surmaderas.com.ar/cotizador/fibrofacil.jpg"  data-description="Madera MDF (fibro fácil) de diferentes espesores, ideal para trabajos de ebanistería y manualidades. Es suave, fácil de cortar y pintar, pero no es resistente a la humedad.">Fibro Fácil 3mm</option>
+                <option id="FF" value="14128.30" data-image="https://surmaderas.com.ar/cotizador/fibrofacil.jpg" data-description="Madera MDF (fibro fácil) de diferentes espesores, ideal para trabajos de ebanistería y manualidades. Es suave, fácil de cortar y pintar, pero no es resistente a la humedad.">Fibro Fácil 9 mm</option>
+                <option id="FF" value="10139.20" data-image="https://surmaderas.com.ar/cotizador/fibrofacil.jpg" data-description="Madera MDF (fibro fácil) de diferentes espesores, ideal para trabajos de ebanistería y manualidades. Es suave, fácil de cortar y pintar, pero no es resistente a la humedad.">Fibro Fácil 5 mm</option>
+                <option id="FF" value="17633.69" data-image="https://surmaderas.com.ar/cotizador/fibrofacil.jpg" data-description="Madera MDF (fibro fácil) de diferentes espesores, ideal para trabajos de ebanistería y manualidades. Es suave, fácil de cortar y pintar, pero no es resistente a la humedad.">Fibro Fácil 12 mm</option>
+                <option id="FF" value="21704.55" data-image="https://surmaderas.com.ar/cotizador/fibrofacil.jpg" data-description="Madera MDF (fibro fácil) de diferentes espesores, ideal para trabajos de ebanistería y manualidades. Es suave, fácil de cortar y pintar, pero no es resistente a la humedad.">Fibro Fácil 15 mm</option>
+                <option id="FF" value="26086.12" data-image="https://surmaderas.com.ar/cotizador/fibrofacil.jpg" data-description="Madera MDF (fibro fácil) de diferentes espesores, ideal para trabajos de ebanistería y manualidades. Es suave, fácil de cortar y pintar, pero no es resistente a la humedad.">Fibro Fácil 18 mm</option>
+
+                <option id="TB" value="40345.94" data-image="https://surmaderas.com.ar/cotizador/pino.jpg" data-description="Madera maciza de pino, utilizada comúnmente en carpintería para muebles y estructuras. Es resistente, ligera y tiene un acabado natural que puede ser barnizado o pintado.">Tablero Pino 18 mm</option>
+                <option id="TB" value="50520.84" data-image="https://surmaderas.com.ar/cotizador/pino.jpg" data-description="Madera maciza de pino, utilizada comúnmente en carpintería para muebles y estructuras. Es resistente, ligera y tiene un acabado natural que puede ser barnizado o pintado.">Tablero Pino 15 mm</option>
+                <option id="TB" value="56134.25" data-image="https://surmaderas.com.ar/cotizador/pino.jpg" data-description="Madera maciza de pino, utilizada comúnmente en carpintería para muebles y estructuras. Es resistente, ligera y tiene un acabado natural que puede ser barnizado o pintado.">Tablero Pino 21 mm</option>
+                <option id="TB" value="74714.74" data-image="https://surmaderas.com.ar/cotizador/pino.jpg" data-description="Madera maciza de pino, utilizada comúnmente en carpintería para muebles y estructuras. Es resistente, ligera y tiene un acabado natural que puede ser barnizado o pintado.">Tablero Pino 30 mm</option>
+
+                <option id="FN" value="25711.18" data-image="https://surmaderas.com.ar/cotizador/fenolico.jpg" data-description="Tablero contrachapado recubierto con resina fenólica, muy resistente a la humedad y utilizado en construcciones exteriores y encofrados para hormigón.">Fenólico 6 mm</option>
+                <option id="FN" value="36241.98" data-image="https://surmaderas.com.ar/cotizador/fenolico.jpg" data-description="Tablero contrachapado recubierto con resina fenólica, muy resistente a la humedad y utilizado en construcciones exteriores y encofrados para hormigón.">Fenólico 10 mm</option>
+                <option id="FN" value="49354.90" data-image="https://surmaderas.com.ar/cotizador/fenolico.jpg" data-description="Tablero contrachapado recubierto con resina fenólica, muy resistente a la humedad y utilizado en construcciones exteriores y encofrados para hormigón.">Fenólico 18 mm</option>
+
+                <option id="PZ" value="26932.50" data-image="https://surmaderas.com.ar/cotizador/pizarron.jpg" data-description="Superficie de madera recubierta con pintura especial para tiza, utilizada en pizarrones escolares o domésticos. Disponible en colores negro y verde.">Pizarrón Negro</option>
+                <option id="PZ" value="26392.54" data-image="https://surmaderas.com.ar/cotizador/pizarron.jpg" data-description="Superficie de madera recubierta con pintura especial para tiza, utilizada en pizarrones escolares o domésticos. Disponible en colores negro y verde.">Pizarrón Verde</option>
+
+                <option id="FP" value="11784.34" data-image="https://surmaderas.com.ar/cotizador/fibroplus.jpg" data-description="MDF recubierto en laminado blanco o negro, ideal para la fabricación de muebles y decoraciones. Ofrece una superficie lisa y fácil de limpiar.">Fibro Plus Blanco/Negro</option>
+                <option id="OSD"value="27346.72" data-image="https://surmaderas.com.ar/cotizador/fibroplus.jpg"     data-description= "Tablero de virutas orientadas, conocido por su resistencia y uso en la construcción de paredes, techos y suelos. Es económico y tiene un aspecto rústico.">OSB 10 mm</option>
+                <option id="TR" value="13926.90" data-image="https://surmaderas.com.ar/cotizador/terciado.jpg"  data-description= "Tablero contrachapado delgado, ligero y flexible. Usado en revestimientos y aplicaciones que no requieren gran resistencia estructural.">Terciado 3 mm</option>
+                <option id="MB" value="27256.84" data-image="https://surmaderas.com.ar/cotizador/melamina.jpg"  data-description= "Tablero de aglomerado recubierto con melamina blanca, utilizado para muebles modulares. Es resistente, fácil de limpiar y ofrece un acabado moderno.">Melamina Blanca 18 mm</option>
+                <option id="CP" value="27853.84" data-image="https://surmaderas.com.ar/cotizador/chapadur.jpg"  data-description= "Madera dura perforada, utilizada en paneles decorativos y para organizar herramientas en talleres. Es liviano y versátil.">Chapadur Perforado 3 mm</option>
+                <option id="V"  value="21387.91" data-image="https://surmaderas.com.ar/cotizador/vidrio.jpg"   data-description= "Vidrio fino y transparente, cortado a medida para diferentes aplicaciones, como ventanas y puertas. Es delicado pero ofrece una gran visibilidad.">Vidrio 2 mm a Medida</option>
+                <option id="E"  value="37681.94" data-image="https://surmaderas.com.ar/cotizador/espejo.jpg"   data-description= "Espejo de grosor fino, cortado a medida para decoración y uso funcional. Aporta luminosidad y amplitud a los espacios.">Espejo 3 mm a Medida</option>
+            </select><br><br>
+        
+        <img id="imagenMadera" src="" alt="Imagen de la madera" style="max-width: 300px; display: none;"><br><br>
+    <div id="infoMaterial">
+            <b><p id="descripcionM" style="display: none;">Acerca del material:</p></b>
+            <div id="descripcionMadera" style="display:none;"></div>
+    </div>
+    </div>
+    <hr>
+    <div id="uno">
+        
+        <u><p>2. Ingrese la medida del corte y la cantidad de cortes que nesecite (En caso de usar decimales utilice punto) </p></u>
+        
+
+        <label for="alto">Largo (cm):</label>
+        <input type="number" id="alto" name="alto"><br><br>
+
+        <label for="ancho">Ancho (cm):</label>
+        <input type="number" id="ancho" name="ancho"><br><br>
+
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" name="alto"><br><br>
+
+        <label for="preciometromadera">Precio por m2 ($):</label>
+        <input type="number" id="preciometromadera" name="preciometromadera" readonly><br><br>
+
+
+    <br>
+
+        <button type="button" class="btn btn-outline-secondary" id="CALCULAR">CALCULAR</button>
+        
+    </div>
+    
+    
+    
+   
+
+    
+    <hr>
+    <div id="dos">
+        <img  id="logo" src="https://rematesmdq.com/surmaderas/img/logo-linea-gris.png" alt="">
+        <h2>Costo Total: $<span id="costototalcorte">0.00</span></h2> 
+        <p id="costeUnidad" style="display: none;"> (El costo por unidad del corte es $<span id="costounidadalcorte">0.00 </span>)</p>
+        <p id="agradecimiento" style="display:none;">¡Gracias por utilizar nuestra calculadora!</p>
+        <p id="especificacion" style="display:none;">(En el precio se incluye el material y el corte, el mismo puede llegar a variar sin previo aviso)</p>
+    </div>
+    <hr>
+    
+    <!-- <div id="misCortes" style="font-family: arial; ">
+        <div style="display: none;" class="logo"><img  id="logo1" src="/logo linea-gris.png" alt=""></div> 
+        <u id="TituloMisCortes"><h3>Mis cortes</h3></u> 
+            <div>
+                <table id="tabla" class="table table-striped" id="tablaCalculos">
+                    <thead>
+                      <tr>
+                        <th scope="col" >Seleccionar</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Material y espesor</th>
+                        <th scope="col">Medida del corte</th>
+                        <th scope="col" class="text-end">Precio por unidad</th>
+                        <th scope="col" class="text-end">Sub total</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th class="text-end">Total</th>
+                            <th  class="text-end" id="resultado_total"></th>
+                        </tr>
+                    </tfoot>
+                  </table>
+
+                    <div class="botones">
+                        <button class="btn btn-outline-danger" id="delete_selected" type="button">Eliminar Corte</button>
+                        <button class="btn btn-outline-primary" id="finpedido" type="button">Finalizar </button>
+                        <button data-toggle="tooltip" data-placement="top" title="Guardar PDF" class="btn btn-outline-secondary" id="downloadpdf" type="button"><i style="size: 24px; " class="fa-solid fa-download"> </i></button>
+                    </div>
+            </div>
+            <hr>
+    </div> -->
+
+    <div id="misCortes" style="font-family: arial; ">
+        <img id="logo1" src="https://www.rematesmdq.com/surmaderas/img/logo-linea-gris.png"  >
+        <u id="TituloMisCortes"><h3>Mis cortes</h3></u> 
+            <div>
+                <div style="display: block;" class="logo" > 
+                    
+                </div> 
+
+                <table id="tabla" class="table table-striped" id="tablaCalculos">
+                    <thead>
+                      <tr>
+                        <th scope="col" >Seleccionar</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Material y espesor</th>
+                        <th scope="col">Medida del corte</th>
+                        <th scope="col" class="text-end">Precio por unidad</th>
+                        <th scope="col" class="text-end">Sub total</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th class="text-end">Total</th>
+                            <th class="text-end" id="resultado_total"></th>
+                        </tr>
+                    </tfoot>
+                  </table>
+
+                    <div class="botones ">
+                        <button data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-outline-danger" id="delete_selected" type="button"><i style="size: 24px;" class="fa-solid fa-trash"></i></button>
+                        <button data-toggle="tooltip" data-placement="top" title="Imprimir" class="btn btn-outline-primary" id="finpedido" type="button" ><i class="fa-solid fa-print"></i> </button>
+                        <button data-toggle="tooltip" data-placement="top" title="Guardar PDF" class="btn btn-outline-secondary" id="downloadpdf" type="button"><i style="size: 24px; " class="fa-solid fa-download" onclick="generatePDF()"> </i></button>
+                    </div>
+            </div>
+            <hr>
+    </div>
+
+
+
+    
+    <script>
+        $(document).ready(function() {
+            // Actualizar el precio, imagen y descripción cuando se selecciona un tipo de madera
+            $("#tipoMadera").change(function() {
+                var precio = $(this).val();
+                var imagen = $(this).find('option:selected').data('image');
+                var descripcion = $(this).find('option:selected').data('description');
+                
+                // Actualizar el precio en el input correspondiente
+                $("#preciometromadera").val(precio);
+                
+                // Actualizar la imagen y mostrarla
+                if (imagen) {
+                    $("#descripcionM").show();
+                    $("#imagenMadera").attr("src", imagen).show();
+
+                } else {
+                    $("#imagenMadera").hide();
+                    $("#descripcionM").hide();
+                }
+
+                // Actualizar la descripción y mostrarla
+                if (descripcion) {
+                    $("#descripcionMadera").text(descripcion).show();
+                } else {
+                    $("#descripcionMadera").hide();
+                }
+                
+                
+            });
+
+            // Calcular el costo total cuando se hace clic en el botón
+            $("#CALCULAR").click(function() {
+                    // Obtener los valores de los inputs
+                    var largo = parseFloat($("#alto").val());
+                    var ancho = parseFloat($("#ancho").val());
+                    var cantidad = parseFloat($("#cantidad").val());
+                    var precioPorMetro = parseFloat($("#preciometromadera").val());
+                    var tipoMadera = $("#tipoMadera option:selected").text();
+                    var referenciaMinima = ((10 * 10) * precioPorMetro) / 10000; //se usa para poner un minimo de cobro
+                    
+                    // Validar que los valores sean correctos
+                    if (isNaN(largo) || isNaN(ancho) || isNaN(precioPorMetro) || precioPorMetro === 0) {
+                        alert("Por favor, ingrese valores válidos para el largo, ancho y seleccione un tipo de madera.");
+                        return;
+                    }
+                    
+                    // Limpiar los campos después de agregar la fila
+                    $("#alto").val('');
+                    $("#ancho").val('');
+                    $("#cantidad").val('')
+                    $("#costototalcorte").text('0.00');
+
+                    var largoEnMetros = largo / 100;
+                    var anchoEnMetros = ancho / 100;
+
+                    // Calcular el área en metros cuadrados
+                    var area = largoEnMetros * anchoEnMetros;
+
+                    // Calcular el costo total y por unidad de corte
+                    var costoUnidad = area * precioPorMetro
+                    if (costoUnidad < referenciaMinima) {
+                        costoUnidad = referenciaMinima;
+                    }
+                    var costoTotal = (costoUnidad) * cantidad;
+
+                    // Mostrar el costo total en el elemento correspondiente
+                    $("#costototalcorte").text(costoTotal.toFixed(2));
+                    $("#costounidadalcorte").text(costoUnidad.toFixed(2));
+                    $("#costeUnidad").show();
+
+                    // Mostrar mensaje de agradecimiento
+                    $("#agradecimiento").show();
+
+                    $("#especificacion").show();
+
+                    var numFila = 1 ;
+                    var precioPorUnidad = parseFloat($("#costounidadalcorte").text());
+                    var contar = $('.subtotal').length + 1;
+                    var nuevaFila = `
+                    
+                        <tr>
+                            
+                            <td> <div class='form-check text-center'><input class='form-check-input row-item' type='checkbox'></div> </td>
+                            <td>${cantidad}</td>
+                            <td>${tipoMadera}</td>
+                            <td>${largo} cm x ${ancho} cm</td>
+                            <td class="text-end">$ ${precioPorUnidad.toFixed(2)}</td>
+                            <td class= "text-end subtotal">${costoTotal.toFixed(2)}
+                                
+                            </td>
+                        </tr>
+                    ` ;
+
+                    // Agregar la fila a la tabla
+                    $("#misCortes tbody").append(nuevaFila) ;
+
+                    //Suma los sub totales y genera el total
+                    // console.log(sum);
+                    // $('#resultado_total').html(sum.toFixed(2));
+
+                    // Row Item Change Event Listener
+
+                    $('tr').find('.row-item').change(function() {
+                        if ($(".row-item").length == $(".row-item:checked").length) {
+                            $('#SelectAll').prop('checked', true)
+                        } else {
+                            $('#SelectAll').prop('checked', false)
+                        }
+                    })
+
+                    sumar();
+
+
+                    
+                })
+
+                // Remove Selected Table Row(s)
+                $('#delete_selected').click(function() {
+                        var count = $('.row-item:checked').length
+                        if (count <= 0) {
+                            alert("Por favor, seleccione una fila para eliminar")
+                        } else {
+                            $('.row-item:checked').closest('tr').remove()
+                        }
+
+                        sumar();
+
+                        var contar = $('.subtotal').length;
+
+                })
+
+                $('#finpedido').click(function() {
+
+                    // Swal.fire({
+                    // position: "top-end",
+                    // icon: "success",
+                    // title: "Sus cortes han sido guardados",
+                    // showConfirmButton: false,
+                    // timer: 2500
+                    // });
+
+                    $(".botones").hide();
+                    $(".logo").css("display","block");
+                    printDiv("misCortes");
+
+                    
+
+
+                    var sum=0;
+                    var contar = $('.subtotal').length;
+                    //alert(contar);
+
+                    $('.subtotal').each(function(){  
+                    sum += parseFloat($(this).text().replace(/,/g, ''), 10); 
+
+                    }); 
+
+                    console.log(sum);
+                    $('#resultado_total').html(sum.toFixed(2));
+
+
+
+
+                    })
+
+                function sumar(){
+                    var sum=0;
+                    // var valor="";
+                    var contar = $('.subtotal').length;
+                    //alert(contar);
+
+                    $('.subtotal').each(function(){  
+                    
+                    // valor =($(this).text()).substring(1);
+                    // valor =valor.replace(/./g, '');
+
+                    // console.log("valor :", valor);
+
+                    sum += parseFloat($(this).text().replace(/,/g, ''), 10); 
+                    // sum += parseFloat(valor, 10); 
+                    
+
+
+                    }); 
+
+                    console.log(sum);
+
+                    $('#resultado_total').html(sum.toFixed(2));
+                }
+
+                function printDiv(nombreDiv) {
+            //alert(nombreDiv);
+                var contenido = document.getElementById(nombreDiv).innerHTML;
+                var contenidoOriginal= document.body.innerHTML;
+                document.body.innerHTML = contenido;
+                
+                window.print();
+                
+                document.body.innerHTML = contenidoOriginal;
+
+
+                $(".botones").show();
+                
+            }
+
+                
+        });
+
+        function generatePDF() {
+
+            $("#TituloMisCortes").css("display","inline");
+
+            $("#misCortes").css("color","black");
+
+            
+
+            $(".botones").hide();
+
+            $("#logo1").show();
+
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            html2canvas(document.querySelector("#misCortes"), { useCORS: true } ).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 190; // Ancho de la imagen en el PDF
+                const pageHeight = 290; // Altura de la página en mm
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 10; // Espacio inicial desde el margen superior
+
+                doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    doc.addPage();
+                    doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+
+                doc.save("mis-cortes.pdf");
+
+                $(".botones").show();
+            });
+        }
+                
+     </script>  
+     
+    </body>
+</html>     
+        
